@@ -1,10 +1,10 @@
 package com.ideaxbohan.unchartedlandbeginning;
 
+import com.ideaxbohan.unchartedlandbeginning.event.ModEventSubscriber;
+import com.ideaxbohan.unchartedlandbeginning.item.ChaosSwordItem;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -28,6 +28,11 @@ import org.slf4j.Logger;
 @Mod(ULB.MODID)
 public class ULB
 {
+    public ULB(){
+        MinecraftForge.EVENT_BUS.register(this);
+        ModEventSubscriber.register();
+    }
+
     // Define mod id in a common place for everything to reference
     public static final String MODID = "unchartedlandbeginning";
     // Directly reference a slf4j logger
@@ -44,6 +49,16 @@ public class ULB
 
     public static final RegistryObject<Item> CHAOTIC_INGOT = ITEMS.register("chaotic_ingot", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
 
+    public static final RegistryObject<Item> CHAOTIC_SWORD = ITEMS.register("chaotic_sword", () ->
+            new ChaosSwordItem(
+                    Tiers.NETHERITE,
+                    45,
+                    -2.4f,
+                    new Item.Properties()
+                            .stacksTo(1)
+                            .durability(8888)
+            )
+    );
 
     public ULB(FMLJavaModLoadingContext context)
     {
