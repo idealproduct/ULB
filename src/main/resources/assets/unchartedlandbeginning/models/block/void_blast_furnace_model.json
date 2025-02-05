@@ -1,6 +1,0 @@
-{
-	"parent": "block/cube_all",
-	"textures": {
-		"all": "unchartedlandbeginning:block/void_blast_furnace"
-	}
-}
