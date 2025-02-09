@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "unchartedlandbeginning:block/void_blast_furnace_model"
+      "model": "unchartedlandbeginning:block/void_blast_furnace"
     }
   }
 }

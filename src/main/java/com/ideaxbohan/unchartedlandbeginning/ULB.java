@@ -49,7 +49,16 @@ public class ULB
 
     public static final RegistryObject<Item> CHAOTIC_INGOT = ITEMS.register("chaotic_ingot", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
 
-
+    public static final RegistryObject<Item> CHAOTIC_SWORD = ITEMS.register("chaotic_sword", () ->
+            new ChaosSwordItem(
+                    Tiers.NETHERITE,
+                    45,
+                    -2.4f,
+                    new Item.Properties()
+                            .stacksTo(1)
+                            .durability(8888)
+            )
+    );
 
     public static final RegistryObject<Block> VOID_BLAST_FURNACE_BLOCK = BLOCKS.register("void_blast_furnace", () -> new Block(BlockBehaviour.Properties.of(Material.STONE)));
     public static final RegistryObject<Item> VOID_BLAST_FURNACE = ITEMS.register("void_blast_furnace", () -> new BlockItem(VOID_BLAST_FURNACE_BLOCK.get(), new Item.Properties().tab(CreativeModeTab.TAB_DECORATIONS)));
