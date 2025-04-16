@@ -2,6 +2,7 @@ package com.ideaxbohan.unchartedlandbeginning;
 
 import com.ideaxbohan.unchartedlandbeginning.event.ModEventSubscriber;
 import com.ideaxbohan.unchartedlandbeginning.item.ChaosSwordItem;
+import com.ideaxbohan.unchartedlandbeginning.item.CustomBlock;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.*;
@@ -57,10 +58,10 @@ public class ULB
                     new Item.Properties()
                             .stacksTo(1)
                             .durability(8888)
-            )
-    );
+                            .tab(CreativeModeTab.TAB_COMBAT)
+    ));
 
-    public static final RegistryObject<Block> VOID_BLAST_FURNACE_BLOCK = BLOCKS.register("void_blast_furnace", () -> new Block(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> VOID_BLAST_FURNACE_BLOCK = BLOCKS.register("void_blast_furnace", () -> new CustomBlock(BlockBehaviour.Properties.of(Material.STONE)));
     public static final RegistryObject<Item> VOID_BLAST_FURNACE = ITEMS.register("void_blast_furnace", () -> new BlockItem(VOID_BLAST_FURNACE_BLOCK.get(), new Item.Properties().tab(CreativeModeTab.TAB_DECORATIONS)));
 
     public ULB(FMLJavaModLoadingContext context)

@@ -18,7 +18,7 @@ public class ChaosSwordItem extends SwordItem {
     }
 
     // 揮動時發射粒子
-    public void customOnSwing(Player player) {
+    public void hurtEnemy(Player player) {
         Level level = player.level;
 
         if (!level.isClientSide() && level instanceof ServerLevel serverLevel) {
@@ -43,7 +43,7 @@ public class ChaosSwordItem extends SwordItem {
             // 播放音效
             level.playSound(null, player.blockPosition(),
                     SoundEvents.WARDEN_SONIC_BOOM,
-                    SoundSource.PLAYERS,
+                    SoundSource.BLOCKS,
                     1.0f, 1.0f);
         }
     }
