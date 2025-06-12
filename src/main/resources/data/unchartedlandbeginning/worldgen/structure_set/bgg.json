@@ -1,0 +1,15 @@
+{
+  "structures": [
+    {
+      "structure": "unchartedlandbeginning:bgg",
+      "weight": 100
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 10,
+    "separation": 5,
+    "spread_type": "linear",
+    "salt": 1
+  }
+}
