@@ -1,14 +1,25 @@
 package com.ideaxbohan.unchartedlandbeginning;
 
-import com.ideaxbohan.unchartedlandbeginning.event.ModEventSubscriber;
 import com.ideaxbohan.unchartedlandbeginning.item.ChaosSwordItem;
 import com.ideaxbohan.unchartedlandbeginning.item.CustomBlock;
+import com.ideaxbohan.unchartedlandbeginning.registry.ModEntities;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.ChestType;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -25,14 +36,12 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
 
+import java.util.Optional;
+
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(ULB.MODID)
 public class ULB
 {
-    public ULB(){
-        MinecraftForge.EVENT_BUS.register(this);
-        ModEventSubscriber.register();
-    }
 
     // Define mod id in a common place for everything to reference
     public static final String MODID = "unchartedlandbeginning";
@@ -49,7 +58,17 @@ public class ULB
     //##public static final RegistryObject<Item> EXAMPLE_BLOCK_ITEM = ITEMS.register("example_block", () -> new BlockItem(EXAMPLE_BLOCK.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
 
     public static final RegistryObject<Item> CHAOTIC_INGOT = ITEMS.register("chaotic_ingot", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
-
+    public static final RegistryObject<Item> CHAOTIC_BGG = ITEMS.register("bgg",() ->
+            new Item(new Item.Properties()
+                    .food(new FoodProperties.Builder()
+                            .nutrition(4) // 提供的飽食度
+                            .saturationMod(200.0f) // 飽和度修正值
+                            .effect(() -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 200, 5), 1.0f) // 吃下後的效果
+                            .effect(() -> new MobEffectInstance(MobEffects.ABSORPTION, 200, 50), 1.0f)
+                            .alwaysEat() // 無論飽食度如何都能吃
+                            .build())
+                    .tab(CreativeModeTab.TAB_FOOD))
+    );
     public static final RegistryObject<Item> CHAOTIC_SWORD = ITEMS.register("chaotic_sword", () ->
             new ChaosSwordItem(
                     Tiers.NETHERITE,
@@ -75,6 +94,8 @@ public class ULB
         BLOCKS.register(modEventBus);
         // Register the Deferred Register to the mod event bus so items get registered
         ITEMS.register(modEventBus);
+
+        ModEntities.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
@@ -116,4 +137,6 @@ public class ULB
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
         }
     }
+
+
 }
